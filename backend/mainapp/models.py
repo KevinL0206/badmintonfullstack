@@ -16,7 +16,7 @@ class club(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.clubName} - Organiser:def d {self.clubOrganiser.username}"
+        return f"{self.clubName} - Organiser:{self.clubOrganiser.username}"
 
 
 class player(models.Model):
