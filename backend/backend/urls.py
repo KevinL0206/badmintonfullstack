@@ -28,4 +28,5 @@ urlpatterns = [
         name ='token_refresh'),
 
     path('', include('authentication.urls')),
+    path('', include('mainapp.urls')),
 ]

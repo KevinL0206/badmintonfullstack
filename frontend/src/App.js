@@ -1,12 +1,12 @@
 
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import {Login} from "./component/login";
-import {Home} from "./component/home";
+import {Login} from "./pages/login";
+import {Home} from "./pages/home";
 import {Navigation} from './component/navigation';
-import {Logout} from './component/logout';
+import {Logout} from './pages/logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Register } from './component/register';
+import { Register } from './pages/register';
 
 function App() {
   return (
