@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     "authentication",
+    "mainapp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
