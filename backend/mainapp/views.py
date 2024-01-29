@@ -104,6 +104,20 @@ class SessionDetailView(APIView): # this class will display all the players and 
 
 class AddPlayerToSessionView(APIView): # this class will add players to a session
     #permission_classes = [IsAuthenticated]
+
+    def get(self,request,username,clubname,year, month, day,format=None): # this function will return all the players in a club who are not in the session
+
+        currentUser = username
+        sessiondate = timezone.datetime(int(year),int(month),int(day))
+        userInstance = User.objects.get(username = currentUser)
+        clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
+        sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
+        sessionPlayers = sessionInstance.players.all() # get all the players in the session
+        otherPlayers = player.objects.filter(club=clubInstance).exclude(playerName__in=sessionPlayers) # get all the players in the club who are not in the session
+
+        serializer = ClubPlayersSerializer(otherPlayers, many=True)
+        return Response(serializer.data)
+
     def post(self,request,username,clubname,year, month, day,format=None): # this function will add players to a session
         #print("user:" ,request.user)
         #if request.user.username != username:
@@ -126,7 +140,41 @@ class AddPlayerToSessionView(APIView): # this class will add players to a sessio
 
             return Response({"detail": "Players added to session"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RemovePlayerFromSessionView(APIView): # this class will remove players from a session
+
+    def get(self,request,username,clubname,year, month, day,format=None):
+        currentUser = username
+        sessiondate = timezone.datetime(int(year),int(month),int(day))
+        userInstance = User.objects.get(username = currentUser)
+        clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
+        sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
+        sessionPlayers = sessionInstance.players.all() # get all the players in the session
+
+        serializer = ClubPlayersSerializer(sessionPlayers, many=True)
+        return Response(serializer.data)
     
+    def post(self,request,username,clubname,year, month, day,format=None):
+
+        serializer = SessionPlayersSerializer(data=request.data)
+        currentUser = username
+        sessiondate = timezone.datetime(int(year),int(month),int(day))
+        userInstance = User.objects.get(username = currentUser)
+        clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
+        sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
+
+        if serializer.is_valid():
+            players = serializer.validated_data['players']
+            for playername in players:
+                try:
+                    playerInstance = player.objects.get(playerName=playername,club=clubInstance)
+                    sessionInstance.players.remove(playerInstance)
+                except:
+                    return Response({"detail": f"Player {player} does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({"detail": "Players removed from session"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class CreateMatchView(APIView):
 
     def post(self,request,username,clubname,year, month, day,format=None):
