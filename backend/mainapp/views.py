@@ -72,12 +72,13 @@ class SessionDisplayCreateView(APIView): # this class will display all the sessi
             #return Response({'message': 'Unauthorized'}, status=401)
         serializer = SessionSerializer(data=request.data)
 
-        date = request.data['date']
+        date = timezone.now()
         currentUser = username
         userInstance = User.objects.get(username = currentUser)
         clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
 
-        if session.objects.filter(club = clubInstance,date=date):         
+        if session.objects.filter(club = clubInstance,date=date): 
+            print("Session already exists")        
             return Response({"detail": "Session already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
         if serializer.is_valid():
