@@ -51,6 +51,7 @@ export const DisplayClub = () => {
         }
     }
 
+    
     return(
         <div>
             <h1>Club: {clubName}</h1>
