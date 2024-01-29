@@ -20,6 +20,7 @@ class matchSerializer(serializers.ModelSerializer):
     class Meta:
         model = match
         fields = ('matchID','team1','team2','score','completed')
+        read_only_fields = ('matchID',)
 
 class SessionPlayersSerializer(serializers.ModelSerializer):
 

@@ -80,12 +80,15 @@ class SessionDetailView(APIView): # this class will add players to a session
         clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
         sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
         matchInstance = match.objects.filter(session=sessionInstance)
-        serializer = SessionPlayersSerializer(sessionInstance)
-        matchserializer = matchSerializer(matchInstance,many=True)
+
+        serializer = SessionPlayersSerializer(sessionInstance) # return all the players in the session
+        matchserializer = matchSerializer(matchInstance,many=True) # return all the matches in the session
         return Response({
             "session":serializer.data,
             "matches":matchserializer.data
         })
+
+class AddPlayerToSessionView(APIView): # this class will add players to a session
 
     def post(self,request,username,clubname,year, month, day,format=None): # this function will add players to a session
         serializer = SessionPlayersSerializer(data=request.data)
