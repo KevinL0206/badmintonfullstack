@@ -51,7 +51,7 @@ class session(models.Model):
         ]
 
 
-class match(models.Model):
+class match(models.Model): # NEED TO INCLUDE CLUB
     matchID = models.AutoField(primary_key=True)
     session = models.ForeignKey(session,on_delete=models.CASCADE)
     team1 = models.ManyToManyField(player, related_name='team1', blank=True)
