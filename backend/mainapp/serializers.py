@@ -27,3 +27,8 @@ class SessionPlayersSerializer(serializers.ModelSerializer):
     class Meta:
         model = session
         fields = ('players',)
+
+class UpdateMatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = match
+        fields = ('score',)
