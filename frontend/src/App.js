@@ -7,6 +7,7 @@ import {Navigation} from './component/navigation';
 import {Logout} from './pages/logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Register } from './pages/register';
+import { DisplayClub } from './pages/displayClub';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/logout" element={<Logout/>}/>
           
+          <Route path="/:username/:clubName" element={<DisplayClub/>}/>
         </Routes>
     </BrowserRouter>
   );

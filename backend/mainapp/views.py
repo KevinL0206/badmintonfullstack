@@ -11,7 +11,7 @@ from .models import club,player,match,session
 from rest_framework.permissions import IsAuthenticated
 from .functions import calcGameElo
 
-class ClubDisplayCreateView(APIView):
+class ClubDisplayCreateView(APIView): # this class will display all the clubs created by the user and also create a new club
     def get(self, request, username, format=None): # this function will return all the clubs created by the user
         user = User.objects.get(username=username)
         clubs = club.objects.filter(clubOrganiser=user)
@@ -175,7 +175,7 @@ class RemovePlayerFromSessionView(APIView): # this class will remove players fro
             return Response({"detail": "Players removed from session"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CreateMatchView(APIView):
+class CreateMatchView(APIView): # this class will create a match
 
     def post(self,request,username,clubname,year, month, day,format=None):
 
@@ -209,7 +209,7 @@ class CreateMatchView(APIView):
 
             return Response({"detail": "Match created"}, status=status.HTTP_200_OK)
 
-class UpdateMatchView(APIView):
+class UpdateMatchView(APIView): # this class will update a match
 
     def post(self,request,username,clubname,year, month, day,matchID,format=None):
         serializer = UpdateMatchSerializer(data=request.data)
