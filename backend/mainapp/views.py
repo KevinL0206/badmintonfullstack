@@ -188,7 +188,7 @@ class CreateMatchView(APIView): # this class will create a match
         clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
         sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
         freePlayers = list(sessionInstance.players.filter(inGameFlag = False).order_by('elo'))
-
+        
         if len(freePlayers) <4:
             return Response({"detail": "Not enough players to create a match"}, status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -209,6 +209,7 @@ class CreateMatchView(APIView): # this class will create a match
             newMatchInstance.team2.add(matchPlayers[1],matchPlayers[2])
 
             return Response({"detail": "Match created"}, status=status.HTTP_200_OK)
+        
 
 class UpdateMatchView(APIView): # this class will update a match
 

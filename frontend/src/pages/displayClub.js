@@ -13,17 +13,21 @@ export const DisplayClub = () => {
             window.location.href = '/login'
         }
         const fetchSessionData = async () => {
-            const {data} = await axios.get(   // Create the GET request to the backend API.
-                `http://127.0.0.1:8000/api/display-create-session/${username}/${clubName}/`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                }}
-            );
-            setSessions(data);
+            try {
+                const {data} = await axios.get(   // Create the GET request to the backend API.
+                    `http://127.0.0.1:8000/api/display-create-session/${username}/${clubName}/`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    }}
+                );
+                setSessions(data);
+            } catch (error) {
+                console.error('Failed to fetch session data:', error);
             }
+        }
         fetchSessionData();
-    } , []);
+    }, [username, clubName]);
 
     const createSession = async () => {
         
@@ -51,7 +55,6 @@ export const DisplayClub = () => {
         }
     }
 
-    
     return(
         <div>
             <h1>Club: {clubName}</h1>
@@ -64,7 +67,7 @@ export const DisplayClub = () => {
                 
                 return (
                     <p key={index}> {/* Displays Users Clubs as navigation buttons to them */}
-                        <Link to={`${username}/${clubName}/${year}/${month}/${day}`}>{session.date}</Link> 
+                        <Link to={`${year}/${month}/${day}`}>{session.date}</Link> 
                     </p>
                 );
             })}

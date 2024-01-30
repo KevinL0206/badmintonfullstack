@@ -8,6 +8,7 @@ import {Logout} from './pages/logout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Register } from './pages/register';
 import { DisplayClub } from './pages/displayClub';
+import { DisplaySession } from './pages/displaySession';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/logout" element={<Logout/>}/>
           
           <Route path="/:username/:clubName" element={<DisplayClub/>}/>
+          <Route path="/:username/:clubName/:year/:month/:day" element={<DisplaySession/>}/>
         </Routes>
     </BrowserRouter>
   );
