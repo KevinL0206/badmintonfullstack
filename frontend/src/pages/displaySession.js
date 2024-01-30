@@ -18,7 +18,8 @@ export const DisplaySession = () => {
         const fetchSessionDetails = async () => {
             try {
                 const response = await axios.get(   // Create the GET request to the backend API.
-                    `http://127.0.0.1:8000/api/session-detail/${username}/${clubName}/${year}/${month}/${day}/`, {
+                    `http://127.0.0.1:8000/api/session-detail/${username}/${clubName}/${year}/${month}/${day}/`, 
+                    {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -64,7 +65,7 @@ export const DisplaySession = () => {
             {matches.map((match) => (
                 <div>
                     <h4>Match: {match.matchID}</h4>
-                    <h5>Team 1: {match.team1.join(' and ')} | Team 2: {match.team2.join(' and ')} | Score: {match.score} | Status: {match.completed.toString()}</h5>
+                    <h5>Team 1: {match.team1.join(' and ')} | Team 2: {match.team2.join(' and ')} | Score: {match.score} | Status: {match.completed ? "Completed" :"In Progress"}</h5>
                 </div>
             ))}
 

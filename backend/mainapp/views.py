@@ -51,7 +51,10 @@ class ClubPlayersDisplayCreateView(APIView): # this class will display all the p
             currentUser = username
             userInstance = User.objects.get(username = currentUser)
             clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
-            player = serializer.save(club=clubInstance)
+
+            if player.objects.filter(playerName=serializer.validated_data['playerName'],club=clubInstance):
+                return Response({"detail": "Player already exists"}, status=status.HTTP_400_BAD_REQUEST)
+            playerInstance = serializer.save(club=clubInstance)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -82,7 +85,12 @@ class SessionDisplayCreateView(APIView): # this class will display all the sessi
             return Response({"detail": "Session already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
         if serializer.is_valid():
-            sessiondata = serializer.save(club=clubInstance)
+            sessiondata = serializer.save(club=clubInstance) # create a new session
+
+            clubPlayers = player.objects.filter(club = clubInstance)
+            for players in clubPlayers: # set all the players in the club to not in game
+                players.inGameFlag = False
+                players.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

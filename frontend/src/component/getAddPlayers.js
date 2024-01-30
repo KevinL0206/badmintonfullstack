@@ -25,12 +25,10 @@ export const FetchAddPlayers = (props) => {
         fetchData();
     }, []);
 
-
-
     const handleCheckboxChange = (playerName) => {
-        setCheckedPlayers(prevState => ({
+        setCheckedPlayers(prevState => ({ //prevstate is the current state of checkedPlayers
             ...prevState, // keep all other key-value pairs
-            [playerName]: !prevState[playerName]  // update the value of specific key
+            [playerName]: !prevState[playerName]  // add or update the value of specific key
         }));
     };
 
@@ -55,6 +53,7 @@ export const FetchAddPlayers = (props) => {
 
         
     };
+    
     return (
         <div>
             <button onClick={() => setHide(!hide)}>Add Players</button>

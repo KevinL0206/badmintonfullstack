@@ -24,6 +24,7 @@ export const Home = () => {
                     setMessage(data.message);          
                 } catch (e) {            
                     console.log('not authenticated') 
+                    window.location.reload(); 
                 }         
                 })()};     
     }, []);
