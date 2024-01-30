@@ -1,7 +1,8 @@
 import {useEffect, useState,} from "react";
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
-
+import { FetchAddPlayers } from '../component/getAddPlayers';
+import { FetchRemovePlayers } from '../component/getRemovePlayers';
 
 export const DisplaySession = () => {
 
@@ -43,10 +44,8 @@ export const DisplaySession = () => {
                 }}
             );
             if (response.status === 200) {
-                console.log(response);
                 window.location.reload();
             } else if (response.response.status === 400){
-                console.log(response.response.data.detail);
                 setError(response.response.data.detail);
             }
         } catch (e) {
@@ -63,17 +62,20 @@ export const DisplaySession = () => {
             <h3>Matches:</h3>
 
             {matches.map((match) => (
-                console.log(match),
                 <div>
                     <h4>Match: {match.matchID}</h4>
                     <h5>Team 1: {match.team1.join(' and ')} | Team 2: {match.team2.join(' and ')} | Score: {match.score} | Status: {match.completed.toString()}</h5>
                 </div>
             ))}
-            
-            
 
             <button onClick={createMatch}>Create Match</button>
             {error && <p>Error: {error}</p>} {/* Display the error message if there is one */}
+
+            <FetchAddPlayers username={username} clubName={clubName} year={year} month={month} day={day} />
+
+            <FetchRemovePlayers username={username} clubName={clubName} year={year} month={month}day={day} />
+
+            
         </div>
     )
 }

@@ -49,7 +49,7 @@ export const Home = () => {
         <h4>{message}</h4>
 
         <h3>Your Clubs</h3>
-        {clubs.map((club, index) => (
+        {clubs?.map((club, index) => (
             <p key={index}> {/* Displays Users Clubs as navigation buttons to them */}
                 <Link to={`${localStorage.getItem('username')}/${club.clubName}`}>{club.clubName}</Link> 
             </p>

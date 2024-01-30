@@ -158,6 +158,7 @@ class RemovePlayerFromSessionView(APIView): # this class will remove players fro
     def post(self,request,username,clubname,year, month, day,format=None):
 
         serializer = SessionPlayersSerializer(data=request.data)
+        print(serializer)
         currentUser = username
         sessiondate = timezone.datetime(int(year),int(month),int(day))
         userInstance = User.objects.get(username = currentUser)
@@ -166,6 +167,7 @@ class RemovePlayerFromSessionView(APIView): # this class will remove players fro
 
         if serializer.is_valid():
             players = serializer.validated_data['players']
+            
             for playername in players:
                 try:
                     playerInstance = player.objects.get(playerName=playername,club=clubInstance)
