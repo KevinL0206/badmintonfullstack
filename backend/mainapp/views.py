@@ -240,6 +240,11 @@ class UpdateMatchView(APIView): # this class will update a match
         team1_names = [player.playerName for player in team1.all()]
         team2_names = [player.playerName for player in team2.all()]
 
+        playerOneInstance = player.objects.get(playerName = team1_names[0],club = clubInstance)
+        playerTwoInstance = player.objects.get(playerName = team1_names[1],club = clubInstance)
+        playerThreeInstance = player.objects.get(playerName = team2_names[0],club = clubInstance)
+        playerFourInstance = player.objects.get(playerName = team2_names[1],club = clubInstance)       
+
         if serializer.is_valid() and not matchInstance.completed:
             score = serializer.validated_data['score']
             
@@ -256,20 +261,28 @@ class UpdateMatchView(APIView): # this class will update a match
             winloss = []
             if team1Score > team2Score:
                 winloss = [1,0]
+                playerOneInstance.win += 1
+                playerTwoInstance.win += 1
+                playerThreeInstance.loss += 1
+                playerFourInstance.loss += 1
             elif team2Score > team1Score:
                 winloss = [0,1]
+                playerOneInstance.loss += 1
+                playerTwoInstance.loss += 1
+                playerThreeInstance.win += 1
+                playerFourInstance.win += 1
 
             matchInstance.score = score
             matchInstance.completed = True
             matchInstance.save()
 
+
+            #update win and loss count for each player
+
             #Calculate new ELO rating for each player
             playerOneNewElo,playerTwoNewElo,playerThreeNewElo,playerFourNewElo = calcGameElo(team1,team2,winloss)
 
-            playerOneInstance = player.objects.get(playerName = team1_names[0],club = clubInstance)
-            playerTwoInstance = player.objects.get(playerName = team1_names[1],club = clubInstance)
-            playerThreeInstance = player.objects.get(playerName = team2_names[0],club = clubInstance)
-            playerFourInstance = player.objects.get(playerName = team2_names[1],club = clubInstance)
+
             
             #Update player ELO
             playerOneInstance.elo = playerOneNewElo

@@ -28,7 +28,7 @@ export default function MatchDetails(props) {
             );
 
             if (response.status === 200) {
-                window.location.href = `/${props.username}/${props.clubName}/${props.year}/${props.month}/${props.day}`;
+                window.location.reload();
             } else if (response.response.status === 400){
                 console.log(response.response.data.detail);
                 setError(response.response.data.detail);
@@ -43,7 +43,7 @@ export default function MatchDetails(props) {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-white p-4">
+        <main className="flex flex-col items-center justify-center bg-white p-10">
             <div className="text-center mb-8">
                 <h1 className="text-5xl font-bold mb-4 underline">Match {props.matchID} Details: {props.status}</h1>
                 <div className="text-2xl font-semibold">
