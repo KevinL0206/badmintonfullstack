@@ -11,4 +11,5 @@ urlpatterns = [
     path('api/remove-player-from-session/<str:username>/<str:clubname>/<int:year>/<int:month>/<int:day>/', views.RemovePlayerFromSessionView.as_view(), name ='removeplayerfromsession'),
     path('api/create-match/<str:username>/<str:clubname>/<int:year>/<int:month>/<int:day>/', views.CreateMatchView.as_view(), name ='creatematch'),
     path('api/update-match/<str:username>/<str:clubname>/<int:year>/<int:month>/<int:day>/<int:matchID>/', views.UpdateMatchView.as_view(), name ='updatematch'),
+    path('api/fetch-match/<str:username>/<str:clubname>/<int:year>/<int:month>/<int:day>/<int:matchid>/', views.fetchMatchView.as_view(), name ='fetchmatch'),
 ]

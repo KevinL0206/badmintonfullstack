@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Register } from './pages/register';
 import { DisplayClub } from './pages/displayClub';
 import { DisplaySession } from './pages/displaySession';
+import { DisplayMatch } from './pages/displayMatch';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           
           <Route path="/:username/:clubName" element={<DisplayClub/>}/>
           <Route path="/:username/:clubName/:year/:month/:day" element={<DisplaySession/>}/>
+          <Route path="/:username/:clubName/:year/:month/:day/:matchid" element={<DisplayMatch/>}/>
         </Routes>
     </BrowserRouter>
   );

@@ -246,11 +246,12 @@ class UpdateMatchView(APIView): # this class will update a match
             #Get Match Score
             team1Score, team2Score = map(int, score.split('-'))
 
-            if team1Score > 21  and team2Score < 20 or team2Score > 21 and team1Score < 20:
+            if team1Score > 21  and team2Score < team1Score - 2 or team2Score > 21 and team1Score < team2Score - 2:
                 return Response({"detail": "Invalid score"}, status=status.HTTP_400_BAD_REQUEST)
             if team1Score < 0 or team2Score < 0:
                 return Response({"detail": "Invalid score"}, status=status.HTTP_400_BAD_REQUEST)
-
+            if team1Score < 20 and team2Score != 21 or team2Score < 20 and team1Score != 21:
+                return Response({"detail": "Invalid score"}, status=status.HTTP_400_BAD_REQUEST)
             #Calculate which team won
             winloss = []
             if team1Score > team2Score:
@@ -292,3 +293,14 @@ class UpdateMatchView(APIView): # this class will update a match
             if matchInstance.completed:
                 return Response({"detail": "Match already completed"}, status=status.HTTP_400_BAD_REQUEST)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class fetchMatchView(APIView):
+
+    def get(self,request,username,clubname,year, month, day,matchid,format=None):
+
+        matchInstance = match.objects.get(matchID=matchid)
+        serializer = matchSerializer(matchInstance)
+
+        return Response(serializer.data)
+
+

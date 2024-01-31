@@ -1,7 +1,6 @@
 import {useEffect, useState,} from "react";
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
-import { set } from "react-hook-form";
 
 
 export const DisplayClub = () => {
@@ -132,6 +131,8 @@ export const DisplayClub = () => {
                 <input onChange={handleChange} type="text" placeholder="Player Name" />
                 <button onClick={handleSubmit}>Add Player</button>
             </div>
+
+            
         </div> 
     )
 }

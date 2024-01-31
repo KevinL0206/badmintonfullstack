@@ -64,7 +64,7 @@ export const DisplaySession = () => {
 
             {matches.map((match) => (
                 <div>
-                    <h4>Match: {match.matchID}</h4>
+                    <Link to ={`${match.matchID}`}><h4>Match: {match.matchID}</h4></Link>
                     <h5>Team 1: {match.team1.join(' and ')} | Team 2: {match.team2.join(' and ')} | Score: {match.score} | Status: {match.completed ? "Completed" :"In Progress"}</h5>
                 </div>
             ))}
