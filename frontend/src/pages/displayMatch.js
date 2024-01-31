@@ -7,8 +7,7 @@ import MatchDetails from "../component/matchdetails";
 export const DisplayMatch = () => {
     const [match,setMatch] = useState([]);
     const { username, clubName,year,month,day,matchid } = useParams();
-    const [score, setScore] = useState('');
-    const [error, setError] = useState(null);
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -35,34 +34,6 @@ export const DisplayMatch = () => {
         fetchMatchData();
     }, []);
 
-    const handleChange = (event) => setScore(event.target.value);
-
-    const handleSubmit = async () => {
-        console.log(score);
-        try {
-            const response = await axios.post(
-                `http://127.0.0.1:8000/api/update-match/${username}/${clubName}/${year}/${month}/${day}/${matchid}/ `, 
-                {
-                "score": score,
-                }, 
-                {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                }}
-            );
-
-            if (response.status === 200) {
-                window.location.href = `/${username}/${clubName}/${year}/${month}/${day}`;
-            } else if (response.response.status === 400){
-                console.log(response.response.data.detail);
-                setError(response.response.data.detail);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     if (loading) {
         return <div>Loading...</div>; // Display a loading message or a spinner
     }
@@ -72,7 +43,18 @@ export const DisplayMatch = () => {
     }
 
     return(
-        match && <MatchDetails matchID={match.matchID} score={match.score} team1={match.team1} team2={match.team2} status={match.completed} />
+        match && <MatchDetails 
+        matchID={match.matchID} 
+        score={match.score} 
+        team1={match.team1} 
+        team2={match.team2} 
+        status={match.completed ? "Completed" : "Ongoing"} 
+        username={username} 
+        clubName={clubName} 
+        year={year} 
+        month={month} 
+        day={day} 
+        matchid={matchid} />
     )
 
 }
