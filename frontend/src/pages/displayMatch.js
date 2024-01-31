@@ -1,6 +1,7 @@
 import {useEffect, useState,} from "react";
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
+import MatchDetails from "../component/matchdetails";
 
 
 export const DisplayMatch = () => {
@@ -8,6 +9,7 @@ export const DisplayMatch = () => {
     const { username, clubName,year,month,day,matchid } = useParams();
     const [score, setScore] = useState('');
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if(localStorage.getItem('access_token') === null){ // Check if the user is authenticated or not. if not redirect to login page.                      
@@ -23,7 +25,8 @@ export const DisplayMatch = () => {
                     }}
                 );
                 setMatch(data);
-                console.log(data);
+                setLoading(false);
+                console.log("data",data);
 
             } catch (error) {
                 console.error('Failed to fetch session data:', error);
@@ -60,28 +63,16 @@ export const DisplayMatch = () => {
         }
     }
 
+    if (loading) {
+        return <div>Loading...</div>; // Display a loading message or a spinner
+    }
+
+    if (!match) {
+        return <div>No match data available</div>; // Display a message if no match data is available
+    }
 
     return(
-        <div>
-            
-            <div>
-                <h3>Match Details</h3>
-                {match.matchID && <p>Match ID: {match.matchID}</p>}
-                {match.team1 && <p>Team 1: {match.team1.join(' and ')}</p>}
-                {match.team2 && <p>Team 2: {match.team2.join(' and ')}</p>}
-                {match.score && <p>Score: {match.score}</p>}
-                {match.completed && <p>Status: {match.completed ? "Completed" :"In Progress"}</p>}
-            </div>
-
-            <div>
-                <h3> Final Score: </h3>
-                <input onChange={handleChange} type="text" placeholder="00-00" />
-                <button onClick={handleSubmit}>Submit</button>
-                {error && <p>Error: {error}</p>} 
-            </div>
-
-        </div>
-
+        match && <MatchDetails matchID={match.matchID} score={match.score} team1={match.team1} team2={match.team2} status={match.completed} />
     )
 
 }
