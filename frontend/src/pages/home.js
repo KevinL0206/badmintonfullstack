@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 export const Home = () => {     
     const [message, setMessage] = useState('');
     const [clubs, setClubs] = useState([]);
+    const[clubName, setClubName] = useState(''); 
     
     useEffect(() => {        
         if(localStorage.getItem('access_token') === null){ // Check if the user is authenticated or not. if not redirect to login page.                      
@@ -43,20 +44,71 @@ export const Home = () => {
         fetchClubData();
     }, []);
 
+    const handleClick = (clubname) => {
+        window.location.href = `${localStorage.getItem('username')}/${clubname}`
+    }
 
-    return(         
-        <div className="form-signin mt-5 text-center">
-        <h3>Hi {localStorage.getItem('username')} </h3>
-        <h4>{message}</h4>
+    const handleChange = (event) => setClubName(event.target.value);
 
-        <h3>Your Clubs</h3>
-        {clubs.map((club, index) => (
-            <p key={index}> {/* Displays Users Clubs as navigation buttons to them */}
-                <Link to={`${localStorage.getItem('username')}/${club.clubName}`}>{club.clubName}</Link> 
-            </p>
-        ))}
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post(
+                `http://127.0.0.1:8000/api/display-create-club/${localStorage.getItem('username')}/`,{
+                "clubName": clubName,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }}
+            );
+            window.location.reload();
+        } catch (error) { 
+            console.log("Failed to Create New Club",error);
+        }
+    }
 
-        </div>
-        
+
+    return( 
+
+        <main className="flex-1">
+            <section className="w-full py-12 md:py-24 lg:py-64 ">
+                <div className="container px-4 md:px-6 ">
+                    <div className="flex flex-col items-center space-y-10 text-center">
+                            <div className="space-y-2">
+                                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                                Welcome to Badminton Fixtures
+                                </h1>
+                                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                                Manage Your Clubs With Ease.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-5 gap-4">
+                                {clubs.map((club, index) => (
+                                    <button 
+                                        onClick={() => handleClick(club.clubName)}
+                                        key={index}
+                                        className={`aspect-[2/1] ${index === clubs.length - 1 ? 'col-span-2 lg:col-span-1' : ''} overflow-hidden rounded-lg object-contain object-center text-center font-bold text-xl mx-4`}
+                                    >
+                                        {club.clubName}
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            <div className="mt-8">     
+                                <input
+                                    onChange={handleChange}
+                                    className="border-2 border-gray-300 p-2 mb-4 rounded-md"
+                                    placeholder="Enter New Club Name"
+                                    type="text"
+                                />
+                                <button  onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                            </div>  
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
     )
 }
