@@ -26,7 +26,8 @@ export const Login = () => {
         localStorage.setItem('access_token', data.access);         
         localStorage.setItem('refresh_token', data.refresh);
         localStorage.setItem('username', username);         
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;    // Set the authorization header for the axios requests.     
+        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;    // Set the authorization header for the axios requests. 
+        console.log("redirecting")    
         window.location.href = '/'; // Redirect to the home page.
     }
     return(      

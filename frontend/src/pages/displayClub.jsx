@@ -1,6 +1,8 @@
 import {useEffect, useState,} from "react";
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom';
+import Component from "@/component/displaydetails";
+
 
 
 export const DisplayClub = () => {
@@ -99,38 +101,7 @@ export const DisplayClub = () => {
 
     return(
         <div>
-            <div>
-                <h1>Club: {clubName}</h1>
-                <h3>Sessions:</h3>
-                {sessions?.map((session, index) => { {/* Maps through the sessions and displays them */}
-                    const date = new Date(session.date);
-                    const year = date.getFullYear();
-                    const month = date.getMonth() + 1; // 0 indicates the first month of the year)
-                    const day = date.getDate();
-                    
-                    return (
-                        <p key={index}> {/* Displays Users Clubs as navigation buttons to them */}
-                            <Link to={`${year}/${month}/${day}`}>{session.date}</Link> 
-                        </p>
-                    );
-                })}
-
-                <button onClick={createSession}>Create Session</button>
-                {error && <p>Error: {error}</p>} {/* Display the error message if there is one */}
-            </div>
-
-            <div>
-                <h3>Club Players:</h3>
-                
-                {clubPlayers.map((player, index) => (
-                    <li key={index}>
-                        <ul >{player.playerName}</ul>
-                    </li>
-                ))}
-
-                <input onChange={handleChange} type="text" placeholder="Player Name" />
-                <button onClick={handleSubmit}>Add Player</button>
-            </div>
+            <Component />
 
             
         </div> 
