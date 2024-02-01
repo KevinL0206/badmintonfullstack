@@ -71,31 +71,37 @@ export const Home = () => {
     return( 
 
         <main className="flex-1">
-            <section className="w-full py-12 md:py-24 lg:py-64 ">
-                <div className="container px-4 md:px-6 ">
-                    <div className="flex flex-col items-center space-y-10 text-center">
-                            <div className="space-y-2">
-                                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+            <section className="w-full h-full py-8 md:py-16 lg:py-32">
+                <div className="container  px-4 md:px-6">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
+                        <div className="space-y-2">
+                            <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-6xl">
                                 Welcome to Badminton Fixtures
-                                </h1>
-                                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                            </h1>
+                            <p className="mt-3 mx-auto max-w-[600px] text-gray-500 md:text-lg lg:text-base xl:text-lg dark:text-gray-400">
                                 Manage Your Clubs With Ease.
-                                </p>
-                            </div>
+                            </p>
+                        </div>
 
-                            <div className="grid grid-cols-5 gap-4">
-                                {clubs.map((club, index) => (
-                                    <button 
-                                        onClick={() => handleClick(club.clubName)}
-                                        key={index}
-                                        className={`aspect-[2/1] ${index === clubs.length - 1 ? 'col-span-2 lg:col-span-1' : ''} overflow-hidden rounded-lg object-contain object-center text-center font-bold text-xl mx-4`}
-                                    >
-                                        {club.clubName}
-                                    </button>
-                                ))}
-                            </div>
+                        <hr className="w-1/3 mx-auto " />
+
+                        <div className="mt-4 grid grid-cols-4 gap-4">
+                            {clubs.map((club, index) => (
+                                <button 
+                                    onClick={() => handleClick(club.clubName)}
+                                    key={index}
+                                    className={`aspect-[2/1] ${index === clubs.length - 1 ? 'col-span-2 lg:col-span-1' : ''} overflow-hidden rounded-lg object-contain object-center text-center font-bold text-lg mx-4`}
+                                >
+                                    {club.clubName}
+                                </button>
+                            ))}
+                        </div>
+                        
+                        <div className="mt-20 space-x-2">
                             
-                            <div className="mt-8">     
+                            <span className="font-bold">Create New Club: </span>
+                            
+                            <span>
                                 <input
                                     onChange={handleChange}
                                     className="border-2 border-gray-300 p-2 mb-4 rounded-md"
@@ -103,7 +109,8 @@ export const Home = () => {
                                     type="text"
                                 />
                                 <button  onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-                            </div>  
+                            </span>
+                        </div>  
                     </div>
                 </div>
             </section>
