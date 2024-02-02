@@ -8,7 +8,7 @@ import Component from "@/component/displaydetails";
 export const DisplayClub = () => {
     const [sessions,setSessions] = useState([]);
     const { username, clubName } = useParams(); 
-    const [error, setError] = useState(null);
+    
     const [clubPlayers, setClubPlayers] = useState([]);
     const [playerName,setPlayerName] = useState('');
 
@@ -34,31 +34,6 @@ export const DisplayClub = () => {
         fetchSessionData();
     }, [username, clubName]);
 
-    const createSession = async () => {
-        
-        try {
-            const response = await axios.post(
-                `http://127.0.0.1:8000/api/display-create-session/${username}/${clubName}/`, {
-                body: JSON.stringify({
-                    'clubName': clubName,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                }}
-            );
-            if (response.status === 201) {
-                console.log(response);
-                window.location.reload();
-            } else if (response.response.status === 400){
-                console.log(response.response.data.detail);
-                setError(response.response.data.detail);
-            }
-        } catch (e) {
-            console.log(e);
-            setError("Invalid Request")
-        }
-    }
 
     useEffect(() => {
         const getClubPLayers = async () => {
@@ -101,7 +76,7 @@ export const DisplayClub = () => {
 
     return(
         <div>
-            <Component />
+            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={clubPlayers} handleChange={handleChange} handleSubmit={handleSubmit} />
 
             
         </div> 
