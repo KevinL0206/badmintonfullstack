@@ -10,6 +10,9 @@ import axios from "axios";
 
 export default function Component(props) {
     const [error, setError] = useState(null);
+    const [playerName,setPlayerName] = useState('');
+    const [nameerror, setNameError] = useState('');
+
     const createSession = async () => {
         
         try {
@@ -37,6 +40,34 @@ export default function Component(props) {
             setError("Invalid Request")
         }
     }
+    const handleChange = (event) => setPlayerName(event.target.value);
+    const handleSubmit = async () => {
+        console.log(playerName);
+        try {
+            const response = await axios.post(
+                `http://127.0.0.1:8000/api/display-create-club-players/${props.username}/${props.clubName}/`,{
+                    "playerName": playerName,
+                },
+                {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                }}
+            );
+            if (response.status === 201) {
+                window.location.reload();
+            } else if (response.response.status === 400){
+                console.log(response.response.data.playerName[0])
+                if (response.response.data.playerName[0] === "player with this playerName already exists.") {
+                    setNameError("Player already exists");
+                }
+                console.log(nameerror)
+            }
+        } catch (error) {
+            console.log('Failed to add player:',error);
+        } 
+    }
+
     return (
         <div className="flex flex-col h-screen">
         
@@ -76,8 +107,11 @@ export default function Component(props) {
                     <CollapsibleContent>
                     
                     <div className="flex items-center gap-2 mb-4 mt-4">
-                        <Input onChange={props.handleChange} className="w-full md:w-1/2 lg:w-2/3" placeholder="Player Name..." type="text" />
-                        <Button onClick={props.handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Player</Button>
+                        <Input onChange={handleChange} className="w-full md:w-1/2 lg:w-2/3" placeholder="Player Name..." type="text" />
+                        <Button onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Player</Button>
+                    </div>
+                    <div className="text-red-500 font-bold mb-4">
+                        {nameerror && <p>Error: {nameerror}</p>}
                     </div>
                     <ScrollArea className="h-[600px] w-60 rounded-md border">
                     <div className="grid grid-cols-1 gap-4">

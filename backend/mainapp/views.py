@@ -47,6 +47,7 @@ class ClubPlayersDisplayCreateView(APIView): # this class will display all the p
         #if request.user.username != username:
             #return Response({'message': 'Unauthorized'}, status=401)
         serializer = ClubPlayersSerializer(data=request.data)
+        print(serializer.is_valid())
         if serializer.is_valid():
             currentUser = username
             userInstance = User.objects.get(username = currentUser)

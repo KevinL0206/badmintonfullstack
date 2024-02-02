@@ -1,12 +1,17 @@
 // Import the react JS packages 
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import {useState} from "react";
 import axios from "axios";
-import {useState} from "react";// Define the Login function.
 import Nav from 'react-bootstrap/Nav';
 
+
 export const Login = () => {     
+
     const [username, setUsername] = useState('');     
-    const [password, setPassword] = useState('');     
-    // Create the submit method.
+    const [password, setPassword] = useState('');    
     const submit = async e => {          
         e.preventDefault();           
         const user = { // Create the user object.
@@ -30,46 +35,60 @@ export const Login = () => {
         console.log("redirecting")    
         window.location.href = '/'; // Redirect to the home page.
     }
-    return(      
-    <div className="Auth-form-container">
-        <form className="Auth-form" onSubmit={submit}>
-            <div className="Auth-form-content">
-                <h3 className="Auth-form-title">Sign In</h3>
 
-                <div className="form-group mt-3">
-                    <label>Username</label>
-                    <input className="form-control mt-1" 
-                        placeholder="Enter Username" 
-                        name='username'  
-                        type='text' 
-                        value={username}
-                        required 
-                        onChange={e => setUsername(e.target.value)}/>
-                </div>
-
-                <div className="form-group mt-3">
-                    <label>Password</label>
-                    <input 
-                        name='password' 
-                        type="password"     
-                        className="form-control mt-1"
-                        placeholder="Enter password"
-                        value={password}
-                        required
-                        onChange={e => setPassword(e.target.value)}/>
-                </div>
-
-                <div className="d-grid gap-2 mt-3">
-                    <button type="submit" 
-                        className="btn btn-primary">Submit</button>
-                </div>
-
-                <nav>
-                    <Nav.Link href="/register">Register</Nav.Link>
-                </nav>
-                
+    return (
+        <div className="flex justify-center items-center h-screen -mt-16 ">
+        <div className="mx-auto max-w-[350px] space-y-6 border-2 border-gray p-4 rounded" >
+            <div className="space-y-2 text-center">
+                <h1 className="text-3xl font-bold">Login</h1>
+                <p className="text-gray-500 dark:text-gray-400">Enter your information to login to your account</p>
             </div>
-        </form>
-    </div>
+            <div>
+                <div className="space-y-4">
+                    <form className="Auth-form" onSubmit={submit}>
+                        <div className="space-y-2">
+                            <Label className="font-semibold" htmlFor="username">Username</Label>
+                            <Input id="username" 
+                                placeholder="Username" 
+                                name='username'  
+                                type='text' 
+                                value={username}
+                                required 
+                                onChange={e => setUsername(e.target.value)}/>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="font-semibold" htmlFor="password">Password</Label>
+                            <Input id="password" 
+                                name='password' 
+                                type="password"     
+                                className="form-control mt-1"
+                                placeholder="Enter password"
+                                value={password}
+                                required
+                                onChange={e => setPassword(e.target.value)}/> 
+                        </div>
+                        <div className="mt-4">
+                        <Button className="w-full bg-green-500 hover:bg-green-700 rounded font-bold text-white" type="submit">
+                            Login
+                        </Button>
+                        </div>
+                    </form>
+                </div>
+                
+                <Separator className="my-8" />
+                <div className="space-y-4">
+                    <div className="mt-4 text-center text-sm">
+                        Don't have an account?
+                        <Nav.Link href="/register" className="underline" >
+                        Register
+                        </Nav.Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
     )
-}
+    }
+
+

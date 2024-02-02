@@ -8,9 +8,9 @@ import Component from "@/component/displaydetails";
 export const DisplayClub = () => {
     const [sessions,setSessions] = useState([]);
     const { username, clubName } = useParams(); 
-    
+
     const [clubPlayers, setClubPlayers] = useState([]);
-    const [playerName,setPlayerName] = useState('');
+    
 
 
     useEffect(() => {
@@ -54,31 +54,11 @@ export const DisplayClub = () => {
         getClubPLayers();
     } ,[]);
 
-    const handleChange = (event) => setPlayerName(event.target.value);
-    const handleSubmit = async () => {
-        console.log(playerName);
-        try {
-            const response = await axios.post(
-                `http://127.0.0.1:8000/api/display-create-club-players/${username}/${clubName}/`,{
-                    "playerName": playerName,
-                },
-                {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                }}
-            );
-            window.location.reload();
-        } catch (error) {
-            console.log('Failed to add player:',error);
-        } 
-    }
+    
 
     return(
         <div>
-            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={clubPlayers} handleChange={handleChange} handleSubmit={handleSubmit} />
-
-            
+            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={clubPlayers} />
         </div> 
     )
 }
