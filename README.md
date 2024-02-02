@@ -34,24 +34,24 @@ Welcome to the Badminton Club Organizer App, a specialized tool crafted for club
 
 ### 1. Registration Page
 
-![Register Page](.images\home.png)
+![Register Page](./images/Register.png)
 
 ### 2. Login Page
 
-![Login Page](.images\login.png)
+![Login Page](./images/login.png)
 
 ### 3. Home Page
 
-![Home Page](.images\home.png)
+![Home Page](./images/home.png)
 
 ### 4. Club Page
 
-![Club Page](.images\Sessions.png)
+![Club Page](./images/Sessions.png)
 
 ### 5. Sessions Page
 
-![Sessions Page](.images\matches.png)
+![Sessions Page](./images/matches.png)
 
 ### 6. Match Page
 
-![Match Page](.images\match.png)
+![Match Page](./images/match.png)
