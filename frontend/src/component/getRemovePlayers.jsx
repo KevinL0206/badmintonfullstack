@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button"
 
 export const FetchRemovePlayers = (props) => {
     const [sessionRemovePlayer, setSessionRemovePlayer] = useState([]); 
-    const [hide, setHide] = useState(true);
     const [checkedPlayers, setCheckedPlayers] = useState({});
 
     useEffect(() => {
@@ -60,24 +60,28 @@ export const FetchRemovePlayers = (props) => {
 
     return (
         <div>
-            <button onClick={() => setHide(!hide)}>Remove Players</button>
-            {!hide && sessionRemovePlayer.map((player, index) => (
+            
+            {sessionRemovePlayer.map((player, index) => (
                 
+                <div className="grid grid-cols-1 gap-4">
+                    
                     <div key={index}>
-                        <h5>Player: {player.playerName}</h5>
-                        <input 
-                            type="checkbox" 
-                            id={`playerCheckbox-${index}`} 
-                            checked={checkedPlayers[player.playerName] || false}
-                            onChange={() => handleCheckboxChange(player.playerName)}
-                        />
-                        <label htmlFor={`playerCheckbox-${index}`}>Select</label>
 
+                        <div className="flex items-center gap-4">
+                            <input 
+                                type="checkbox" 
+                                id={`playerCheckbox-${index}`} 
+                                checked={checkedPlayers[player.playerName] || false}
+                                onChange={() => handleCheckboxChange(player.playerName)}
+                            />
+                            <label htmlFor={`playerCheckbox-${index}`}>{player.playerName}</label>
+
+                        </div>
                     </div>
-
+                </div>
             ))}
             
-            {!hide && <button onClick={handleSubmit}>Submit</button>}
+            {<Button onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-0.5 px-2.5 mt-2 rounded ">Remove</Button>}
             
             
         </div>

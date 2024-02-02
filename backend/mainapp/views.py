@@ -192,6 +192,7 @@ class CreateMatchView(APIView): # this class will create a match
     def post(self,request,username,clubname,year, month, day,format=None):
 
         serializer = matchSerializer(data=request.data)
+        print("hi")
         currentUser = username
         sessiondate = timezone.datetime(int(year),int(month),int(day))
 
@@ -201,6 +202,7 @@ class CreateMatchView(APIView): # this class will create a match
         freePlayers = list(sessionInstance.players.filter(inGameFlag = False).order_by('elo'))
         
         if len(freePlayers) <4:
+            print("hi")
             return Response({"detail": "Not enough players to create a match"}, status=status.HTTP_400_BAD_REQUEST)
         else:
             matchPlayers = []

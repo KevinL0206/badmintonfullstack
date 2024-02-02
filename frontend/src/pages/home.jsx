@@ -79,7 +79,7 @@ export const Home = () => {
                                 Welcome to Badminton Fixtures
                             </h1>
                             <p className="mt-3 mx-auto max-w-[600px] text-gray-500 md:text-lg lg:text-base xl:text-lg dark:text-gray-400">
-                                Manage Your Clubs With Ease.
+                                Manage Your Clubs
                             </p>
                         </div>
 
@@ -99,7 +99,7 @@ export const Home = () => {
                         
                         <div className="mt-20 space-x-2">
                             
-                            <span className="font-bold">Create New Club: </span>
+                            <span className="font-bold">Create a New Club: </span>
                             
                             <span>
                                 <input
