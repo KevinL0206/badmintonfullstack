@@ -2,7 +2,10 @@
 import {useForm} from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
-
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 export const Register = () => {
     
 
@@ -35,13 +38,42 @@ export const Register = () => {
     };
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)}> 
-            <p><input type="text" placeholder="Username" {...register("username")} /> {errors.username?.message}</p>
-            <p><input type="text" placeholder="Email" {...register("email")} /> {errors.email?.message}</p>
-            <p><input type="password" placeholder="Password" {...register("password")} />  {errors.password?.message}</p>
-            <p><input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />   {errors.confirmPassword?.message}</p>
-            <p><input type="submit" value="Submit" /></p>
-        </form>
+        <div className="flex justify-center items-center h-screen -mt-16 ">
+            <div className="mx-auto w-[350px] max-w-[350px] space-y-6 border-2 border-gray p-4 rounded" >
+                <div className="space-y-2 text-center">
+                    <h1 className="text-3xl font-bold">Register</h1>
+                    <p className="text-gray-500 dark:text-gray-400">Enter Your Registration Details</p>
+                </div>
+                <div>
+                    <div className="space-y-4 mt-2">
+                        <form onSubmit={handleSubmit(onSubmit)}> 
+                            <div className="space-y-2"> 
+                                <Label className="font-semibold" htmlFor="username">Username</Label>
+                                <Input type="text" placeholder="Username" {...register("username")} /> {errors.username?.message}
+                            </div>
+
+                            <div className="space-y-2 mt-2"> 
+                                <Label className="font-semibold" htmlFor="username">Email</Label>
+                                <Input type="text" placeholder="Email" {...register("email")} /> {errors.email?.message}
+                            </div>
+                            <div className="space-y-2 mt-2"> 
+                                <Label className="font-semibold" htmlFor="username">Password</Label>
+                                <Input type="password" placeholder="Password" {...register("password")} />  {errors.password?.message}
+                            </div>
+                            <div className="space-y-2 mt-2"> 
+                                <Label className="font-semibold" htmlFor="username">Confirm Password</Label>
+                                <Input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />   {errors.confirmPassword?.message}
+                            </div>
+                            <div className="mt-3">
+                                <Button className="w-full bg-green-500 hover:bg-green-700 rounded font-bold text-white" type="submit">
+                                    Register
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 
 
