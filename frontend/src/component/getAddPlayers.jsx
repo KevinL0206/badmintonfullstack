@@ -76,7 +76,7 @@ export const FetchAddPlayers = (props) => {
 
             ))}
             
-            <Button onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-0.5 px-2.5 mt-2 rounded ">Add</Button>
+            <Button onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-0.5 px-4 mt-2 rounded ">Add</Button>
             
             
         </div>

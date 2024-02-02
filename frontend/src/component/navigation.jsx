@@ -13,7 +13,7 @@ export function Navigation() {
     return ( 
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/">Badminton Fixture App</Navbar.Brand>            
+                <Navbar.Brand className={"ml-2"} href="/">Badminton Fixture App</Navbar.Brand>            
                 <Nav className="me-auto"> 
                 {isAuth ? <Nav.Link href="/">Home</Nav.Link> : null}
                 </Nav>

@@ -17,10 +17,11 @@ export default function DisplaySessionComp(props) {
         
             <div className="flex flex-1">
                 <main className="flex flex-1 flex-col gap-4 p-6 md:gap-8 md:p-10">
-                <div className="flex items-center gap-4">
+                <h1 className="text-4xl font-bold mb-4 underline">Session Details : {props.year}-{props.month}-{props.day} </h1>
+                <div className="flex items-center gap-2">
                     <Button onClick = {props.createMatch} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Generate Match</Button>
                     <span className="text-red-500 font-bold">{props.error && <p>Error: {props.error}</p>} {/* Display the error message if there is one */}</span>
-                    <Button onClick={handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View All Matches</Button>
+                    <Button onClick={handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View All Sessions</Button>
                 </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {props.matches.map((match) => (

@@ -76,16 +76,16 @@ export const Home = () => {
                     <div className="flex flex-col items-center justify-center h-full text-center">
                         <div className="space-y-2">
                             <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-6xl">
-                                Welcome to Badminton Fixtures
+                                Welcome to <span className="text-green-500">Badminton</span> Fixtures
                             </h1>
-                            <p className="mt-3 mx-auto max-w-[600px] text-gray-500 md:text-lg lg:text-base xl:text-lg dark:text-gray-400">
+                            <p className="mt-4 mx-auto max-w-[600px] text-gray-500 md:text-lg lg:text-base xl:text-lg dark:text-gray-400">
                                 Manage Your Clubs
                             </p>
                         </div>
 
                         <hr className="w-1/3 mx-auto " />
 
-                        <div className="mt-4 grid grid-cols-4 gap-4">
+                        <div className="mt-8 grid grid-cols-4 gap-4">
                             {clubs.map((club, index) => (
                                 <button 
                                     onClick={() => handleClick(club.clubName)}
@@ -108,7 +108,7 @@ export const Home = () => {
                                     placeholder="Enter New Club Name"
                                     type="text"
                                 />
-                                <button  onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                                <button  onClick={handleSubmit} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Submit</button>
                             </span>
                         </div>  
                     </div>
