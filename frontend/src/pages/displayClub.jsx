@@ -39,7 +39,7 @@ export const DisplayClub = () => {
         const getClubPLayers = async () => {
             try {
                 const response = await axios.get(
-                    `http://127.0.0.1:8000/api/display-create-club-players/kevin/badders/`, {
+                    `http://127.0.0.1:8000/api/display-create-club-players/${username}/${clubName}/`, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
