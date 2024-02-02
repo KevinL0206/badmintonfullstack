@@ -6,8 +6,9 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import Nav from 'react-bootstrap/Nav';
+
 export const Register = () => {
-    
 
     const schema = yup.object().shape({ //schema is used to define the rules for the form
         username: yup.string().required("Username is Required"),
@@ -64,12 +65,22 @@ export const Register = () => {
                                 <Label className="font-semibold" htmlFor="username">Confirm Password</Label>
                                 <Input type="password" placeholder="Confirm Password" {...register("confirmPassword")} />   {errors.confirmPassword?.message}
                             </div>
-                            <div className="mt-3">
+                            <div className="mt-4">
                                 <Button className="w-full bg-green-500 hover:bg-green-700 rounded font-bold text-white" type="submit">
                                     Register
                                 </Button>
                             </div>
                         </form>
+                    </div>
+
+                    <Separator className="my-8" />
+                    <div className="space-y-4">
+                        <div className="mt-4 text-center text-sm">
+                            Already have an account?
+                            <Nav.Link href="/login" className="underline" >
+                            Login
+                            </Nav.Link>
+                        </div>
                     </div>
                 </div>
             </div>
