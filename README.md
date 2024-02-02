@@ -4,17 +4,19 @@
 
 Welcome to the Badminton Club Organizer App, a specialized tool crafted for club organizers to manage badminton matches within their club. This app focuses on creating fair and competitive match pairings based on players' ratings, and each game played will dynamically influence a player's rating. This ensures that the club maintains a balanced and competitive environment for all its members.
 
-- ** Stack: **
-  - Backend: Django(Django REST Framework) -
-  - Frontend: React + Vite, TailwindCSS, shadcn/ui
+**Stack:**
+
+- Backend: Django(Django REST Framework) -
+- Frontend: React + Vite, TailwindCSS, shadcn/ui
 
 ## Features
 
 ### 1. Club Management
 
-- **Organizer Dashboard:**
-  - Manage and oversee all club activities from a centralized dashboard.
-  - Access key statistics and insights about players and match outcomes.
+**Organizer Dashboard:**
+
+- Manage and oversee all club activities from a centralized dashboard.
+- Access key statistics and insights about players and match outcomes.
 
 ### 2. Match Fixing Algorithm
 
