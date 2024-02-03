@@ -2,9 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 def get_today():
     return timezone.now().date()
+
+def get_default_elo_history():
+    return [1200]
 
 class club(models.Model):
     clubName = models.CharField(max_length = 255)
@@ -26,6 +30,7 @@ class player(models.Model):
     loss =  models.IntegerField(default = 0)
     inGameFlag = models.BooleanField(default = False)
     elo = models.IntegerField(default = 1200)
+    eloHistory = ArrayField(models.IntegerField(),  default=get_default_elo_history)
 
     def __str__(self):
         return str(self.playerName)
