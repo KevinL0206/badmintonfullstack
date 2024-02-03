@@ -54,11 +54,11 @@ export const DisplayClub = () => {
         getClubPLayers();
     } ,[]);
 
-    
+    let sortedPlayers = clubPlayers && [...clubPlayers].sort((a, b) => a.playerName.localeCompare(b.playerName));
 
     return(
         <div>
-            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={clubPlayers} />
+            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={sortedPlayers} />
         </div> 
     )
 }

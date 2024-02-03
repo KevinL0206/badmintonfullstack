@@ -68,15 +68,19 @@ export default function Component(props) {
         } 
     }
 
+    const handleClick = () => {
+        window.location.href = `/${props.username}/${props.clubName}/players`;
+    }
+
     return (
         <div className="flex flex-col h-screen">
         
         <div className="flex flex-1">
             <main className="flex flex-1 flex-col gap-4 p-6 md:gap-8 md:p-10">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
             <Button onClick = {createSession} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Session</Button>
             <span className="text-red-500 font-bold">{error && <p>Error: {error}</p>} {/* Display the error message if there is one */}</span>
-            
+            <Button onClick = {handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View Player Details</Button>
             </div>
             <div >
             {props.sessions?.map((session, index) => {

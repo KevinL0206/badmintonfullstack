@@ -32,3 +32,9 @@ class UpdateMatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = match
         fields = ('score',)
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = player
+        fields = ('playerName','win','loss','elo')
+        read_only_fields = ('playerName',)

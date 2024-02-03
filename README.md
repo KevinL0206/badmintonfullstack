@@ -48,6 +48,10 @@ Welcome to the Badminton Club Organizer App, a specialized tool crafted for club
 
 ![Club Page](./images/Sessions.png)
 
+### 4. Players Page
+
+![Players Page](./images/players.png)
+
 ### 5. Sessions Page
 
 ![Sessions Page](./images/matches.png)

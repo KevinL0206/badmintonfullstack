@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ClubSerializer, ClubPlayersSerializer,SessionSerializer,SessionPlayersSerializer,matchSerializer,UpdateMatchSerializer
+from .serializers import ClubSerializer, ClubPlayersSerializer,SessionSerializer,SessionPlayersSerializer,matchSerializer,UpdateMatchSerializer,PlayerSerializer
 from django.contrib.auth.models import User
 from django.utils import timezone
 from .models import club,player,match,session
@@ -320,3 +320,14 @@ class fetchMatchView(APIView):
         return Response(serializer.data)
 
 
+class fetchPlayerDetails(APIView):
+    
+    def get(self,request,username,clubname,format=None):
+        currentUser = username
+        userInstance = User.objects.get(username = currentUser)
+        print(userInstance)
+        print(clubname)
+        clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
+        players = player.objects.filter(club=clubInstance)
+        serializer = PlayerSerializer(players, many=True)
+        return Response(serializer.data)
