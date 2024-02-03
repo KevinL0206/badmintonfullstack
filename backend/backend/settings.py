@@ -101,12 +101,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gpvnfhzu',
-        'USER': 'gpvnfhzu',
-        'PASSWORD': 'tDEdkeCrj206TDGNAwNFFpGJ34mbQKj9',
-        'HOST': 'tai.db.elephantsql.com',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'badmintonfixtures',
+        'USER': 'KevinL0206',
+        'PASSWORD': 'qSEuNBaJr8h6',
+        'HOST': 'ep-young-king-a2yx7fxx.eu-central-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 

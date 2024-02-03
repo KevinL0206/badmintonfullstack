@@ -289,18 +289,22 @@ class UpdateMatchView(APIView): # this class will update a match
             
             #Update player ELO
             playerOneInstance.elo = playerOneNewElo
+            playerOneInstance.eloHistory.append(playerOneNewElo)
             playerOneInstance.inGameFlag = False
             playerOneInstance.save()
 
             playerTwoInstance.elo = playerTwoNewElo
+            playerTwoInstance.eloHistory.append(playerTwoNewElo)
             playerTwoInstance.inGameFlag = False
             playerTwoInstance.save()
 
             playerThreeInstance.elo = playerThreeNewElo
+            playerThreeInstance.eloHistory.append(playerThreeNewElo)
             playerThreeInstance.inGameFlag = False
             playerThreeInstance.save()
 
             playerFourInstance.elo = playerFourNewElo
+            playerFourInstance.eloHistory.append(playerFourNewElo)
             playerFourInstance.inGameFlag = False
             playerFourInstance.save()
 
