@@ -77,6 +77,7 @@ export default function Component(props) {
         
         <div className="flex flex-1">
             <main className="flex flex-1 flex-col gap-4 p-6 md:gap-8 md:p-10">
+            <h1 className="text-4xl font-bold mb-2 underline">All Sessions: </h1>
             <div className="flex items-center gap-2">
             <Button onClick = {createSession} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Session</Button>
             <span className="text-red-500 font-bold">{error && <p>Error: {error}</p>} {/* Display the error message if there is one */}</span>
