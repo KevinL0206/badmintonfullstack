@@ -1,4 +1,4 @@
-# Badminton Club Organizer App Fullstack React Django
+# Badminton Club Organizer App Fullstack
 
 ## Overview
 
