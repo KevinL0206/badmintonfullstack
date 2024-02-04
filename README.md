@@ -7,7 +7,7 @@ Welcome to the Badminton Club Organizer App, a specialized tool crafted for club
 **Stack:**
 
 - Backend: Django (Django REST Framework)
-- Frontend: React + Vite, TailwindCSS, shadcn/ui
+- Frontend: React + Vite, TailwindCSS, shadcn/ui, Recharts
 
 ## Features
 
