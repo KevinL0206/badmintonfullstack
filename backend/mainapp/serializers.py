@@ -38,3 +38,9 @@ class PlayerSerializer(serializers.ModelSerializer):
         model = player
         fields = ('playerName','win','loss','elo')
         read_only_fields = ('playerName',)
+
+class SinglePlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = player
+        fields = ('playerName','win','loss','elo','eloHistory','playhistory')
+        read_only_fields = ('playerName',)

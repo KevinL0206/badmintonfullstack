@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ClubSerializer, ClubPlayersSerializer,SessionSerializer,SessionPlayersSerializer,matchSerializer,UpdateMatchSerializer,PlayerSerializer
+from .serializers import ClubSerializer, ClubPlayersSerializer,SessionSerializer,SessionPlayersSerializer,matchSerializer,UpdateMatchSerializer,PlayerSerializer, SinglePlayerSerializer
 from django.contrib.auth.models import User
 from django.utils import timezone
 from .models import club,player,match,session
@@ -290,21 +290,25 @@ class UpdateMatchView(APIView): # this class will update a match
             #Update player ELO
             playerOneInstance.elo = playerOneNewElo
             playerOneInstance.eloHistory.append(playerOneNewElo)
+            playerOneInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
             playerOneInstance.inGameFlag = False
             playerOneInstance.save()
 
             playerTwoInstance.elo = playerTwoNewElo
             playerTwoInstance.eloHistory.append(playerTwoNewElo)
+            playerTwoInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
             playerTwoInstance.inGameFlag = False
             playerTwoInstance.save()
 
             playerThreeInstance.elo = playerThreeNewElo
             playerThreeInstance.eloHistory.append(playerThreeNewElo)
+            playerThreeInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
             playerThreeInstance.inGameFlag = False
             playerThreeInstance.save()
 
             playerFourInstance.elo = playerFourNewElo
             playerFourInstance.eloHistory.append(playerFourNewElo)
+            playerThreeInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
             playerFourInstance.inGameFlag = False
             playerFourInstance.save()
 
@@ -334,4 +338,14 @@ class fetchPlayerDetails(APIView):
         clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
         players = player.objects.filter(club=clubInstance)
         serializer = PlayerSerializer(players, many=True)
+        return Response(serializer.data)
+    
+class fetchSinglePlayerDetails(APIView):
+    
+    def get(self,request,username,clubname,playername,format=None):
+        currentUser = username
+        userInstance = User.objects.get(username = currentUser)
+        clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
+        playerInstance = player.objects.get(playerName = playername,club = clubInstance)
+        serializer = SinglePlayerSerializer(playerInstance)
         return Response(serializer.data)

@@ -3,12 +3,15 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib.postgres.fields import ArrayField
+from datetime import date
 # Create your models here.
 def get_today():
     return timezone.now().date()
 
-def get_default_elo_history():
-    return [1200]
+def get_date_list():
+    today = timezone.now().date()
+    return [today.strftime('%Y-%m-%d')]
+
 
 class club(models.Model):
     clubName = models.CharField(max_length = 255)
@@ -30,10 +33,18 @@ class player(models.Model):
     loss =  models.IntegerField(default = 0)
     inGameFlag = models.BooleanField(default = False)
     elo = models.IntegerField(default = 1200)
-    eloHistory = ArrayField(models.IntegerField(),  default=get_default_elo_history)
-
+    eloHistory = ArrayField(models.IntegerField(),  default=list)
+    playhistory = ArrayField(models.CharField(max_length=255), default=list)
+    
     def __str__(self):
         return str(self.playerName)
+    
+    def save(self, *args, **kwargs):
+        if not self.eloHistory:
+            self.eloHistory = [1200]  
+        if not self.playhistory:
+            self.playhistory = get_date_list()
+        super().save(*args, **kwargs)
 
     class Meta:
         constraints = [
