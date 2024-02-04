@@ -37,17 +37,17 @@ export default function DisplaySinglePlayerComp(props) {
                 </div>
                 <div className="col-start-1 col-end-2 row-start-2 row-end-8">
                     <div className="h-full bg-white p-4 ">
-                        <h2 className='font-bold text-2xl mb-4'>
-                            {playerName}
+                        <h2 className='font-semibold text-lg mb-4'>
+                            Player: {playerName}
                         </h2>
                         <div>
                             <div className='mb-4 '>
-                                <div className='flex justify-between w-[30%]'>
+                                <div className='flex justify-between w-[50%]'>
                                     <span >Wins: </span>
                                     <span className='text-green-500'>{win}</span>
                                 </div>
 
-                                <div className=" flex w-[30%] h-[0.5em]">
+                                <div className=" flex w-[50%] h-[0.5em]">
                                     <div style={{display: 'flex', flexGrow: progress, flexShrink: 1, flexBasis: 0, backgroundColor: '#10B981'}}>
                                     </div>
 
@@ -61,12 +61,12 @@ export default function DisplaySinglePlayerComp(props) {
                             </div>
                             
                             <div className='mb-4'>
-                                <div className='flex justify-between w-[30%]'>
+                                <div className='flex justify-between w-[50%]'>
                                     <span >Losses: </span>
                                     <span className='text-red-500'>{loss}</span>
                                 </div>
                                 
-                                <div className=" flex w-[30%] h-[0.5em] ">
+                                <div className=" flex w-[50%] h-[0.5em] ">
                                     <div style={{display: 'flex', flexGrow: lossprogress, flexShrink: 1, flexBasis: 0, backgroundColor: '#EF4444'}}>
                                     </div>
 
