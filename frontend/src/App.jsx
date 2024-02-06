@@ -27,7 +27,7 @@ function App() {
           
           <Route path="/:username/:clubName" element={<DisplayClub/>}/>
           <Route path="/:username/:clubName/players" element={<DisplayPlayers/>}/>
-          <Route path="/:username/:clubName/:playername" element={<DisplaySinglePlayer/>}/>
+          <Route path="/:username/:clubName/players/:playername" element={<DisplaySinglePlayer/>}/>
           <Route path="/:username/:clubName/:year/:month/:day" element={<DisplaySession/>}/>
           <Route path="/:username/:clubName/:year/:month/:day/:matchid" element={<DisplayMatch/>}/>
         </Routes>

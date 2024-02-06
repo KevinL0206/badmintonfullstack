@@ -65,10 +65,6 @@ export const DisplaySession = () => {
             
             <DisplaySessionComp username={username} clubName={clubName} year={year} month={month} day={day} matches={matches} createMatch={createMatch} error={error} />
 
-            <FetchAddPlayers username={username} clubName={clubName} year={year} month={month} day={day} />
-
-            <FetchRemovePlayers username={username} clubName={clubName} year={year} month={month} day={day} />
-
             
         </div>
     )

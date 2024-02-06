@@ -24,7 +24,7 @@ export default function DisplayPlayersComp(props) {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                         {props.players.map((player) => (
                             <div key={player.playerName}>
-
+                                <Link to={`${player.playerName}`}>
                                 <Card>
                                     <CardHeader>
                                         <CardTitle > {player.playerName} </CardTitle>
@@ -36,6 +36,7 @@ export default function DisplayPlayersComp(props) {
 
                                     </CardContent>
                                 </Card>
+                                </Link>
 
                             </div>
                         ))}

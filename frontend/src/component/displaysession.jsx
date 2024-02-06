@@ -5,6 +5,7 @@ import { FetchAddPlayers } from '../component/getAddPlayers';
 import { FetchRemovePlayers } from '../component/getRemovePlayers';
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { CollapsibleTrigger, CollapsibleContent, Collapsible } from "@/components/ui/collapsible"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function DisplaySessionComp(props) {
 
@@ -23,6 +24,7 @@ export default function DisplaySessionComp(props) {
                     <span className="text-red-500 font-bold">{props.error && <p>Error: {props.error}</p>} {/* Display the error message if there is one */}</span>
                     <Button onClick={handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View All Sessions</Button>
                 </div>
+                <ScrollArea className="h-[600px] w-100 rounded-md border">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {props.matches.map((match) => (
                             <div key={match.matchID}>
@@ -42,6 +44,7 @@ export default function DisplaySessionComp(props) {
                             </div>
                         ))}
                     </div>
+                </ScrollArea>
                 </main>
                 <aside className="w-80 border-l bg-gray-100/40 p-6 md:p-10 dark:bg-gray-800/40">
                     <div>

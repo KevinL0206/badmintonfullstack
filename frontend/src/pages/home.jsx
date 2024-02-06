@@ -3,8 +3,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
+
 export const Home = () => {     
-    const [message, setMessage] = useState('');
+
     const [clubs, setClubs] = useState([]);
     const[clubName, setClubName] = useState(''); 
     
@@ -22,7 +23,6 @@ export const Home = () => {
                                 'Authorization': `Bearer ${localStorage.getItem('access_token')}` 
                             }}
                         );            
-                    setMessage(data.message);          
                 } catch (e) {            
                     console.log('not authenticated') 
                     window.location.href = '/login'
