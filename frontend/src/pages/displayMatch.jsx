@@ -14,10 +14,13 @@ export const DisplayMatch = () => {
         if(localStorage.getItem('access_token') === null){ // Check if the user is authenticated or not. if not redirect to login page.                      
             window.location.href = '/login'
         }
+        if(localStorage.getItem('username') !== username){ 
+            window.location.href = '/login'
+        }
         const fetchMatchData = async () => {
             try {
                 const {data} = await axios.get(   // Create the GET request to the backend API.
-                    `http://127.0.0.1:8000/api/fetch-match/${username}/${clubName}/${year}/${month}/${day}/${matchid}/`, {
+                    `https://badmintonfixtures-71b4cbceb35a.herokuapp.com/api/fetch-match/${username}/${clubName}/${year}/${month}/${day}/${matchid}/`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

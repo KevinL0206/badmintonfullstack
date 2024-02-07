@@ -10,6 +10,7 @@ from django.utils import timezone
 from .models import club,player,match,session
 from rest_framework.permissions import IsAuthenticated
 from .functions import calcGameElo
+import random
 
 class ClubDisplayCreateView(APIView): # this class will display all the clubs created by the user and also create a new club
     def get(self, request, username, format=None): # this function will return all the clubs created by the user
@@ -19,10 +20,10 @@ class ClubDisplayCreateView(APIView): # this class will display all the clubs cr
         return Response(serializer.data)
 
     def post(self, request, username, format=None): # this function will create a new club
-        #if not request.user.is_authenticated:
-            #return Response({'message': 'Unauthorized'}, status=401)
-        #if request.user.username != username:
-            #return Response({'message': 'Unauthorized'}, status=401)
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = ClubSerializer(data=request.data)
         if serializer.is_valid():
             userInstance = User.objects.get(username=username)
@@ -42,10 +43,10 @@ class ClubPlayersDisplayCreateView(APIView): # this class will display all the p
         return Response(serializer.data) 
 
     def post(self, request, username, clubname, format=None):
-        #if not request.user.is_authenticated:
-            #return Response({'message': 'Unauthorized'}, status=401)
-        #if request.user.username != username:
-            #return Response({'message': 'Unauthorized'}, status=401)
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = ClubPlayersSerializer(data=request.data)
         print(serializer.is_valid())
         if serializer.is_valid():
@@ -70,10 +71,10 @@ class SessionDisplayCreateView(APIView): # this class will display all the sessi
         return Response(serializer.data)
     
     def post(self,request,username,clubname,format=None):
-        #if not request.user.is_authenticated:
-            #return Response({'message': 'Unauthorized'}, status=401)
-        #if request.user.username != username:
-            #return Response({'message': 'Unauthorized'}, status=401)
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = SessionSerializer(data=request.data)
 
         date = timezone.now()
@@ -129,9 +130,10 @@ class AddPlayerToSessionView(APIView): # this class will add players to a sessio
         return Response(serializer.data)
 
     def post(self,request,username,clubname,year, month, day,format=None): # this function will add players to a session
-        #print("user:" ,request.user)
-        #if request.user.username != username:
-            #return Response({'message': 'Unauthorized'}, status=401)
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = SessionPlayersSerializer(data=request.data)
         currentUser = username
         sessiondate = timezone.datetime(int(year),int(month),int(day))
@@ -165,7 +167,10 @@ class RemovePlayerFromSessionView(APIView): # this class will remove players fro
         return Response(serializer.data)
     
     def post(self,request,username,clubname,year, month, day,format=None):
-
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = SessionPlayersSerializer(data=request.data)
         print(serializer)
         currentUser = username
@@ -190,7 +195,10 @@ class RemovePlayerFromSessionView(APIView): # this class will remove players fro
 class CreateMatchView(APIView): # this class will create a match
 
     def post(self,request,username,clubname,year, month, day,format=None):
-
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = matchSerializer(data=request.data)
         print("hi")
         currentUser = username
@@ -200,15 +208,21 @@ class CreateMatchView(APIView): # this class will create a match
         clubInstance = club.objects.get(clubName = clubname,clubOrganiser = userInstance)
         sessionInstance = session.objects.get(club=clubInstance,date=sessiondate)
         freePlayers = list(sessionInstance.players.filter(inGameFlag = False).order_by('elo'))
-        
+        random_number = random.randint(0,1)
+
         if len(freePlayers) <4:
-            print("hi")
+            
             return Response({"detail": "Not enough players to create a match"}, status=status.HTTP_400_BAD_REQUEST)
         else:
             matchPlayers = []
             for _ in range(4):
-                if freePlayers:
+                if freePlayers and random_number < 0.5:
                     player = freePlayers.pop()
+                    player.inGameFlag = True
+                    player.save()
+                    matchPlayers.append(player)
+                elif (freePlayers and random_number >= 0.5):
+                    player = freePlayers.pop(0)
                     player.inGameFlag = True
                     player.save()
                     matchPlayers.append(player)
@@ -227,6 +241,10 @@ class CreateMatchView(APIView): # this class will create a match
 class UpdateMatchView(APIView): # this class will update a match
 
     def post(self,request,username,clubname,year, month, day,matchID,format=None):
+        if not request.user.is_authenticated:
+            return Response({'message': 'Unauthorized'}, status=401)
+        if request.user.username != username:
+            return Response({'message': 'Unauthorized'}, status=401)
         serializer = UpdateMatchSerializer(data=request.data)
         currentUser = username
         sessiondate = timezone.datetime(int(year),int(month),int(day))

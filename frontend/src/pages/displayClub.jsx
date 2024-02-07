@@ -17,10 +17,14 @@ export const DisplayClub = () => {
         if(localStorage.getItem('access_token') === null){ // Check if the user is authenticated or not. if not redirect to login page.                      
             window.location.href = '/login'
         }
+        if(localStorage.getItem('username') !== username){ 
+            window.location.href = '/login'
+        }
+        
         const fetchSessionData = async () => {
             try {
                 const {data} = await axios.get(   // Create the GET request to the backend API.
-                    `http://127.0.0.1:8000/api/display-create-session/${username}/${clubName}/`, {
+                    `https://badmintonfixtures-71b4cbceb35a.herokuapp.com/api/display-create-session/${username}/${clubName}/`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
@@ -39,7 +43,7 @@ export const DisplayClub = () => {
         const getClubPLayers = async () => {
             try {
                 const response = await axios.get(
-                    `http://127.0.0.1:8000/api/display-create-club-players/${username}/${clubName}/`, {
+                    `https://badmintonfixtures-71b4cbceb35a.herokuapp.com/api/display-create-club-players/${username}/${clubName}/`, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
