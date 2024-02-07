@@ -308,7 +308,7 @@ class UpdateMatchView(APIView): # this class will update a match
 
             playerFourInstance.elo = playerFourNewElo
             playerFourInstance.eloHistory.append(playerFourNewElo)
-            playerThreeInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
+            playerFourInstance.playhistory.append(sessiondate.strftime("%Y-%m-%d"))
             playerFourInstance.inGameFlag = False
             playerFourInstance.save()
 

@@ -4,13 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-djangorestframework = "*"
-djangorestframework-simplejwt = "*"
-django-cors-headers = "*"
-psycopg2 = "*"
-django = "==4.1"
-gunicorn = "*"
 django-heroku = "*"
+gunicorn = "*"
 
 [dev-packages]
 

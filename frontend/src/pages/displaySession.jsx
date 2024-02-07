@@ -50,7 +50,7 @@ export const DisplaySession = () => {
             );
             if (response.status === 200) {
                 window.location.reload();
-            } else {
+            } else if (response.status === 400){
                 setError(response.response.data.detail);
             }
         } catch (e) {
@@ -63,7 +63,7 @@ export const DisplaySession = () => {
     return(
         <div>
             
-            <DisplaySessionComp username={username} clubName={clubName} year={year} month={month} day={day} matches={matches} createMatch={createMatch} error={error} />
+            <DisplaySessionComp username={username} clubName={clubName} year={year} month={month} day={day} matches={[...matches].reverse()} createMatch={createMatch} error={error} />
 
             
         </div>

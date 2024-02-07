@@ -21,7 +21,7 @@ export default function DisplaySessionComp(props) {
                 <h1 className="text-4xl font-bold mb-4 underline">Session Details : {props.year}-{props.month}-{props.day} </h1>
                 <div className="flex items-center gap-2">
                     <Button onClick = {props.createMatch} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Generate Match</Button>
-                    <span className="text-red-500 font-bold">{props.error && <p>Error: {props.error}</p>} {/* Display the error message if there is one */}</span>
+                    <span className="text-red-500 font-bold">{props.error && <p>Error: {props.error}</p>} </span>
                     <Button onClick={handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View All Sessions</Button>
                 </div>
                 <ScrollArea className="h-[600px] w-100 rounded-md border">

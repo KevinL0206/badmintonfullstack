@@ -58,7 +58,7 @@ export const DisplayClub = () => {
 
     return(
         <div>
-            <Component username={username} clubName= {clubName} sessions = {sessions} clubPlayers={sortedPlayers} />
+            <Component username={username} clubName= {clubName} sessions = {[...sessions].reverse()} clubPlayers={sortedPlayers} />
         </div> 
     )
 }

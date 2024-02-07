@@ -84,6 +84,7 @@ export default function Component(props) {
             <Button onClick = {handleClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">View Player Details</Button>
             </div>
             <div >
+            <ScrollArea className="h-[600px] w-100 rounded-md border">
             {props.sessions?.map((session, index) => {
                 const date = new Date(session.date);
                 const year = date.getFullYear();
@@ -91,15 +92,18 @@ export default function Component(props) {
                 const day = date.getDate();
                 
                 return (
-                    <Card key={index}>
-                        <CardHeader>
-                            <CardTitle>
-                                <Link to={`${year}/${month}/${day}`}>{session.date}</Link>
-                            </CardTitle>
-                        </CardHeader>
-                    </Card>
+                    
+                        <Card key={index}>
+                            <CardHeader>
+                                <CardTitle>
+                                    <Link to={`${year}/${month}/${day}`}>{session.date}</Link>
+                                </CardTitle>
+                            </CardHeader>
+                        </Card>
+                    
                 );
             })}
+            </ScrollArea>
             </div>
 
             </main>
