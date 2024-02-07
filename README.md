@@ -1,4 +1,4 @@
-# Badminton Club Organizer App Fullstack
+# Badminton Club Organizer App Fullstack - https://badmintonfixtures.netlify.app
 
 ## Overview
 
